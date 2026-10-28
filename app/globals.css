@@ -253,6 +253,24 @@ button {
   z-index: 1;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .movie-card-actions {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-4px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .movie-card:hover .movie-card-actions,
+  .movie-card:focus-within .movie-card-actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+}
+
 .movie-list-button {
   display: inline-flex;
   align-items: center;
