@@ -164,7 +164,8 @@ nav a:hover {
 .hero-action {
   display: inline-flex;
   align-items: center;
-  padding: 12px 15px;
+  min-height: 40px;
+  padding: 10px 15px;
   border-radius: 5px;
   background: #ffffff20;
   color: white;
@@ -182,11 +183,6 @@ button {
   font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-}
-
-button:nth-child(n + 2) {
-  background: #ffffff20;
-  color: white;
 }
 
 .trending {
@@ -420,6 +416,16 @@ nav a:focus-visible,
   margin: 24px 0;
 }
 
+.pagination button {
+  min-height: 40px;
+  background: #ffffff20;
+  color: white;
+}
+
+.pagination button:hover:not(:disabled) {
+  background: #ffffff30;
+}
+
 .pagination button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
@@ -502,13 +508,13 @@ nav a:focus-visible,
 .trailer-button {
   display: inline-flex;
   align-items: center;
-  padding: 12px 15px;
+  min-height: 40px;
+  padding: 10px 15px;
   border-radius: 5px;
   background: #f4f4f4;
   color: #111;
   font-size: 11px;
   font-weight: 700;
-  margin-top: 12px;
   text-decoration: none;
 }
 
