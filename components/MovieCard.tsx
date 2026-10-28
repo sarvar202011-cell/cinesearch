@@ -21,8 +21,10 @@ export default function MovieCard({ movie }: { movie: IMovie }) {
         href={`/movies/${movie.id}?type=${mediaType}`}
         style={{ backgroundImage: background }}
       >
-        <small>{mediaType === "tv" ? "TV" : "MOVIE"}</small>
-        <h3>{movieTitle(movie)}</h3>
+        <div className="movie-caption">
+          <small>{mediaType === "tv" ? "TV" : "MOVIE"}</small>
+          <h3>{movieTitle(movie)}</h3>
+        </div>
       </Link>
       <div className="movie-card-actions">
         <MovieListButton compact list="watchlist" movie={movie} />
