@@ -15,4 +15,22 @@ export interface IMovie {
   tagline?: string;
   status?: string;
   original_language?: string;
+  credits?: {
+    cast: {
+      id: number;
+      name: string;
+      character: string;
+      profile_path: string | null;
+    }[];
+  };
+  videos?: {
+    results: {
+      id: string;
+      key: string;
+      name: string;
+      site: string;
+      type: string;
+      official: boolean;
+    }[];
+  };
 }

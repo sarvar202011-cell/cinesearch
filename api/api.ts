@@ -74,6 +74,7 @@ export async function getMovieDetails(
   const url = new URL(`${baseUrl}/${mediaType}/${id}`);
   url.searchParams.set("api_key", apiKey);
   url.searchParams.set("language", "en-US");
+  url.searchParams.set("append_to_response", "credits,videos");
 
   const response = await fetch(url, { next: { revalidate: 3600 } });
 

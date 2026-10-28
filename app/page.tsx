@@ -5,6 +5,9 @@ import { useMovieStore } from "@/store/useMovieStore";
 import MovieCard from "@/components/MovieCard";
 import type { IMovie } from "@/types/movie";
 import Link from "next/link";
+import MovieTrailerButton from "@/components/MovieTrailerButton";
+import MovieListButton from "@/components/MovieListButton";
+import SiteHeader from "@/components/SiteHeader";
 import { useEffect, useRef, useState } from "react";
 import { Autoplay } from "swiper/modules";
 import type { Swiper as SwiperInstance } from "swiper";
@@ -43,8 +46,14 @@ function HeroContent({
         {error ?? (movie?.overview || (loading ? "Loading movies..." : ""))}
       </p>
       <div className="actions">
-        <button>▶ Play Trailer</button>
-        <button>＋ Add to Watchlist</button>
+        {movie && (
+          <MovieTrailerButton
+            id={movie.id}
+            mediaType={movie.media_type === "tv" ? "tv" : "movie"}
+          />
+        )}
+        {movie && <MovieListButton list="watchlist" movie={movie} />}
+        {movie && <MovieListButton list="favorites" movie={movie} />}
         {movie && (
           <Link
             className="hero-action"
@@ -88,18 +97,7 @@ export default function Home() {
 
   return (
     <main className="cinema">
-      <header className="navbar">
-        <h2 className="logo">
-          CINE<span>SEARCH</span>
-        </h2>
-        <nav>
-          <a className="active">Home</a>
-          <a>Search</a>
-          <a>Discover</a>
-          <a>Watchlist</a>
-          <a>Favorites</a>
-        </nav>
-      </header>
+      <SiteHeader active="home" />
 
       <section className="hero">
         {heroMovies.length > 0 ? (

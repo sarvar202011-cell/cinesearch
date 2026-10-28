@@ -1,10 +1,14 @@
 import "./globals.css";
 import "swiper/css";
+import SavedMovieHydrator from "@/components/SavedMovieHydrator";
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <SavedMovieHydrator />
+        {children}
+      </body>
     </html>
   );
 }

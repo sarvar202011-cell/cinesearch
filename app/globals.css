@@ -55,6 +55,14 @@ nav .active {
   color: white;
 }
 
+nav a {
+  text-decoration: none;
+}
+
+nav a:hover {
+  color: white;
+}
+
 .search {
   margin-left: auto;
   padding: 10px 15px;
@@ -73,7 +81,7 @@ nav .active {
     linear-gradient(90deg, #090909 0%, #090909dd 30%, #09090930 100%),
     linear-gradient(0deg, #090909, transparent 50%),
     url("https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1800&q=90")
-      center 45% /;
+      center 46% /;
 }
 
 .hero-swiper,
@@ -229,6 +237,63 @@ button:nth-child(n + 2) {
   text-decoration: none;
 }
 
+.movie-card {
+  position: relative;
+  min-width: 0;
+}
+
+.movie-card-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 5px;
+}
+
+.movie-list-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 8px 11px;
+  border: 1px solid #ffffff20;
+  background: #ffffff20;
+  color: white;
+  white-space: nowrap;
+}
+
+.movie-list-button:hover,
+.movie-list-button.is-active {
+  background: #f51e3c;
+  color: white;
+}
+
+.movie-list-button.compact {
+  width: 34px;
+  min-height: 34px;
+  padding: 0;
+  border: 1px solid #ffffff40;
+  border-radius: 50%;
+  background: #090909cc;
+  font-size: 15px;
+}
+
+.movie-list-button.compact:hover,
+.movie-list-button.compact.is-active {
+  background: #f51e3c;
+}
+
+.movie-card-actions .movie-list-button:nth-child(n + 2) {
+  background: #090909cc;
+  color: white;
+}
+
+.movie-card-actions .movie-list-button:nth-child(n + 2):hover,
+.movie-card-actions .movie-list-button:nth-child(n + 2).is-active {
+  background: #f51e3c;
+}
+
 .movie:hover {
   transform: translateY(-4px);
 }
@@ -254,6 +319,16 @@ button:nth-child(n + 2) {
 .page-message {
   color: #ddd;
   font-size: 13px;
+}
+
+.empty-collection a {
+  color: #f51e3c;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.empty-collection a:hover {
+  text-decoration: underline;
 }
 
 .pagination {
@@ -343,7 +418,130 @@ button:nth-child(n + 2) {
   max-width: 620px;
 }
 
+.trailer-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 15px;
+  border-radius: 5px;
+  background: #f4f4f4;
+  color: #111;
+  font-size: 11px;
+  font-weight: 700;
+  margin-top: 12px;
+  text-decoration: none;
+}
+
+.details-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.trailer-button:hover {
+  background: #ddd;
+}
+
+.trailer-page {
+  min-height: calc(100vh - 65px);
+  padding: 40px 4%;
+  background: #090909;
+}
+
+.trailer-page-content {
+  max-width: 1150px;
+  margin: 0 auto;
+}
+
+.trailer-page h1 {
+  margin: 0 0 24px;
+  font-size: 28px;
+}
+
+.trailer-player {
+  width: 100%;
+  max-width: 1000px;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+
+.trailer-player iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.cast-section {
+  margin-top: 42px;
+}
+
+.cast-section h2 {
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.cast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 18px;
+}
+
+.cast-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #151515;
+}
+
+.cast-card img,
+.cast-photo-placeholder {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  background: #252525;
+}
+
+.cast-photo-placeholder {
+  display: grid;
+  place-items: center;
+  color: #aaa;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.cast-card h3,
+.cast-card p {
+  margin: 10px 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.cast-card h3 {
+  font-size: 13px;
+}
+
+.cast-card p {
+  margin-top: 4px;
+  margin-bottom: 12px;
+  color: #aaa;
+  font-size: 11px;
+}
+
 @media (max-width: 640px) {
+  .navbar {
+    height: auto;
+    min-height: 65px;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
   .details-layout {
     align-items: flex-start;
     flex-direction: column;
@@ -357,5 +555,13 @@ button:nth-child(n + 2) {
 
   .details-copy h1 {
     font-size: 32px;
+  }
+
+  .trailer-page h1 {
+    font-size: 22px;
+  }
+
+  .cast-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

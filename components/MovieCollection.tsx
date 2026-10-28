@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import MovieCard from "@/components/MovieCard";
+import SiteHeader from "@/components/SiteHeader";
 import type { IMovie } from "@/types/movie";
 
 type CollectionType = "trending" | "popular";
@@ -36,11 +36,11 @@ export default function MovieCollection({ type }: { type: CollectionType }) {
         const data = (await response.json()) as CollectionResponse;
 
         if (!response.ok) {
-          throw new Error(data.error ?? "Не удалось загрузить фильмы.");
+          throw new Error(data.error ?? "Failed to load movies.");
         }
 
         if (!Array.isArray(data.results)) {
-          throw new Error("Сервер вернул некорректный список фильмов.");
+          throw new Error("The server returned an invalid movie list.");
         }
 
         setMovies(data.results);
@@ -50,7 +50,7 @@ export default function MovieCollection({ type }: { type: CollectionType }) {
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Не удалось загрузить фильмы.",
+              : "Failed to load movies.",
           );
         }
       } finally {
@@ -68,24 +68,14 @@ export default function MovieCollection({ type }: { type: CollectionType }) {
 
   return (
     <main className="cinema">
-      <header className="navbar">
-        <h2 className="logo">
-          <Link href="/">
-            CINE<span>SEARCH</span>
-          </Link>
-        </h2>
-        <nav>
-          <Link href="/">Home</Link>
-          <a className="active">{title}</a>
-        </nav>
-      </header>
+      <SiteHeader active="discover" />
 
       <section className="trending collection">
         <h2>{title}</h2>
         {loading && <p className="page-message">Loading movies...</p>}
         {error && <p className="page-message">{error}</p>}
         {!loading && !error && movies.length === 0 && (
-          <p className="page-message">Фильмы не найдены.</p>
+          <p className="page-message">No movies found.</p>
         )}
         {!loading && !error && movies.length > 0 && (
           <>

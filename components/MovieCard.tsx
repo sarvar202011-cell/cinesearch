@@ -1,4 +1,5 @@
 import Link from "next/link";
+import MovieListButton from "@/components/MovieListButton";
 import type { IMovie } from "@/types/movie";
 
 const imageUrl = (path: string) =>
@@ -14,13 +15,19 @@ export default function MovieCard({ movie }: { movie: IMovie }) {
   const mediaType = movie.media_type === "tv" ? "tv" : "movie";
 
   return (
-    <Link
-      className="movie"
-      href={`/movies/${movie.id}?type=${mediaType}`}
-      style={{ backgroundImage: background }}
-    >
-      <small>{mediaType === "tv" ? "TV" : "MOVIE"}</small>
-      <h3>{movieTitle(movie)}</h3>
-    </Link>
+    <article className="movie-card">
+      <Link
+        className="movie"
+        href={`/movies/${movie.id}?type=${mediaType}`}
+        style={{ backgroundImage: background }}
+      >
+        <small>{mediaType === "tv" ? "TV" : "MOVIE"}</small>
+        <h3>{movieTitle(movie)}</h3>
+      </Link>
+      <div className="movie-card-actions">
+        <MovieListButton compact list="watchlist" movie={movie} />
+        <MovieListButton compact list="favorites" movie={movie} />
+      </div>
+    </article>
   );
 }

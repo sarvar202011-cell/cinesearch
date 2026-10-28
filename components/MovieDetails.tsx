@@ -1,7 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import MovieTrailerButton from "@/components/MovieTrailerButton";
+import MovieListButton from "@/components/MovieListButton";
+import SiteHeader from "@/components/SiteHeader";
 import type { IMovie } from "@/types/movie";
 
 type MovieResponse = {
@@ -42,11 +46,11 @@ export default function MovieDetails({
         const data = (await response.json()) as MovieResponse;
 
         if (!response.ok) {
-          throw new Error(data.error ?? "Не удалось загрузить информацию о фильме.");
+          throw new Error(data.error ?? "Failed to load movie details.");
         }
 
         if (!data.movie) {
-          throw new Error("Сервер не вернул информацию о фильме.");
+          throw new Error("The server did not return movie details.");
         }
 
         setMovie(data.movie);
@@ -55,7 +59,7 @@ export default function MovieDetails({
           setError(
             loadError instanceof Error
               ? loadError.message
-              : "Не удалось загрузить информацию о фильме.",
+              : "Failed to load movie details.",
           );
         }
       } finally {
@@ -76,17 +80,7 @@ export default function MovieDetails({
 
   return (
     <main className="cinema">
-      <header className="navbar">
-        <h2 className="logo">
-          <Link href="/">
-            CINE<span>SEARCH</span>
-          </Link>
-        </h2>
-        <nav>
-          <Link href="/">Home</Link>
-          <Link href="/movies?type=trending">Discover</Link>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <section
         className="movie-details"
@@ -128,12 +122,50 @@ export default function MovieDetails({
                 )}
                 <h2>Overview</h2>
                 <p className="details-overview">
-                  {movie.overview || "Описание пока недоступно."}
+                  {movie.overview || "No overview is available yet."}
                 </p>
+                <div className="details-actions">
+                  <MovieTrailerButton id={id} mediaType={mediaType} />
+                  <MovieListButton
+                    list="watchlist"
+                    movie={{ ...movie, media_type: mediaType }}
+                  />
+                  <MovieListButton
+                    list="favorites"
+                    movie={{ ...movie, media_type: mediaType }}
+                  />
+                </div>
               </div>
             </div>
           )}
         </div>
+        {movie?.credits?.cast && movie.credits.cast.length > 0 && (
+          <section className="cast-section" aria-labelledby="cast-heading">
+            <h2 id="cast-heading">Cast</h2>
+            <div className="cast-grid">
+              {movie.credits.cast.slice(0, 12).map((actor) => (
+                <article className="cast-card" key={actor.id}>
+                  {actor.profile_path ? (
+                    <Image
+                      src={imageUrl(actor.profile_path, "w500")}
+                      alt={actor.name}
+                      width={200}
+                      height={300}
+                      unoptimized
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="cast-photo-placeholder" aria-hidden="true">
+                      {actor.name.charAt(0)}
+                    </div>
+                  )}
+                  <h3>{actor.name}</h3>
+                  {actor.character && <p>{actor.character}</p>}
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
       </section>
     </main>
   );
